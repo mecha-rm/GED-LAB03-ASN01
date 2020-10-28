@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEditor;
 
 // TODO: Bonus - make this class a Singleton!
 
 [System.Serializable] // needed for singleton bonus
-public class BulletPoolManager : MonoBehaviour // TODO: take out the mono behaviour.
+public class BulletPoolManager
 {
     // instance of bullet pool manager.
-    // private static BulletPoolManager instance = null;
+    private static BulletPoolManager instance = null;
 
     public GameObject bullet;
 
@@ -20,28 +21,31 @@ public class BulletPoolManager : MonoBehaviour // TODO: take out the mono behavi
     public int MaxBullets = 3;
 
     // constructor - used for instancing (for bonus)
-    // private BulletPoolManager()
-    // {
-    //     Start();
-    // }
-    // 
-    // // gets instance of class (for bonus)
-    // public static BulletPoolManager GetInstance()
-    // {
-    //     if (instance == null)
-    //     {
-    //         instance = new BulletPoolManager();
-    //     }
-    // 
-    //     return instance;
-    // }
+    private BulletPoolManager()
+    {
+        Start();
+    }
+    
+    // gets instance of class (for bonus)
+    public static BulletPoolManager GetInstance()
+    {
+        if (instance == null)
+        {
+            instance = new BulletPoolManager();
+        }
+    
+        return instance;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         // TODO: add a series of bullets to the Bullet Pool
+        // finds bullet
 
-        bullet.SetActive(false); // this will be the bullet that is copied.
+        if (bullet == null)
+            bullet = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Bullet.prefab", typeof(Object));
+
         _BuildBulletPool();
     }
 
@@ -88,6 +92,9 @@ public class BulletPoolManager : MonoBehaviour // TODO: take out the mono behavi
         if (bullet == null)
             return;
 
+        // the bullet shoudl not be visible.
+        bullet.SetActive(false);
+
         // while there are still bullets to load in. 
         while (bulletPool.Count < MaxBullets)
         {
@@ -105,5 +112,25 @@ public class BulletPoolManager : MonoBehaviour // TODO: take out the mono behavi
     public bool IsBulletPoolEmpty()
     {
         return bulletPool.Count == 0;
+    }
+
+    // destroys all bullets in the queue.
+    public void DestroyAllBullets()
+    {
+        // destroys all bullets.
+        while(bulletPool.Count > 0)
+        {
+            GameObject bullet = bulletPool.Dequeue();
+            MonoBehaviour.Destroy(bullet);
+        }
+        
+    }
+
+    // sets the bullet used. This removes all existing bullets.
+    public void SetBullet(GameObject bullet)
+    {
+        DestroyAllBullets();
+        this.bullet = bullet;
+        _BuildBulletPool(); // rebuilds the bullet pool.
     }
 }

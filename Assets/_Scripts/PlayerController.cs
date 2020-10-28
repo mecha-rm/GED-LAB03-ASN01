@@ -37,7 +37,12 @@ public class PlayerController : MonoBehaviour
 
         // gets instance.
         // bulletPoolManager = BulletPoolManager.GetInstance();
-        bulletPoolManager = FindObjectOfType<BulletPoolManager>();
+        // bulletPoolManager = FindObjectOfType<BulletPoolManager>();
+        bulletPoolManager = BulletPoolManager.GetInstance();
+
+        // destroys all bullets in the list.
+        // this needs to be called because when the bullets are deleted, null values still remain in the list.
+        bulletPoolManager.DestroyAllBullets(); 
     }
 
     // Update is called once per frame

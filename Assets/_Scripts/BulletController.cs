@@ -14,7 +14,8 @@ public class BulletController : MonoBehaviour
     void Start()
     {
         boundary.Top = 2.45f;
-        bulletPoolManager = FindObjectOfType<BulletPoolManager>();
+        // bulletPoolManager = FindObjectOfType<BulletPoolManager>();
+        bulletPoolManager = BulletPoolManager.GetInstance();
     }
 
 
