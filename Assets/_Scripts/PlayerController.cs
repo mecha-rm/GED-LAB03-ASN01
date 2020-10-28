@@ -21,7 +21,8 @@ public class PlayerController : MonoBehaviour
 
     private bool isFiring = false;
 
-    //TODO: create a reference to the BulletPoolManager here
+    // TODO: create a reference to the BulletPoolManager here
+    BulletPoolManager bulletPoolManager = null; // = new BulletPoolManager();
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +34,10 @@ public class PlayerController : MonoBehaviour
 
         // Shoots bullet on a delay if button is pressed
         StartCoroutine(FireBullet());
+
+        // gets instance.
+        // bulletPoolManager = BulletPoolManager.GetInstance();
+        bulletPoolManager = FindObjectOfType<BulletPoolManager>();
     }
 
     // Update is called once per frame
@@ -121,7 +126,13 @@ public class PlayerController : MonoBehaviour
                 //TODO: GetBullet function which will return a reference to a 
                 //TODO: bullet object. 
                 //TODO: Ensure you position the new bullet at the bulletSpawn position
-                Instantiate(bullet, bulletSpawn.position, Quaternion.identity);
+
+                // Instantiate(bullet, bulletSpawn.position, Quaternion.identity);
+
+
+                GameObject newBullet = bulletPoolManager.GetBullet();
+                newBullet.transform.position = bulletSpawn.position;
+                newBullet.transform.rotation = Quaternion.identity;
             }
 
         }
