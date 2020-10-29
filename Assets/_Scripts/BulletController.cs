@@ -8,13 +8,14 @@ public class BulletController : MonoBehaviour
     public float bulletSpeed = 0.1f;
     public Boundary boundary;
 
-    //TODO: create a reference to the BulletPoolManager
+    // TODO: create a reference to the BulletPoolManager
     BulletPoolManager bulletPoolManager = null; // BulletPoolManager.GetInstance();
 
     void Start()
     {
         boundary.Top = 2.45f;
-        bulletPoolManager = FindObjectOfType<BulletPoolManager>();
+        // bulletPoolManager = FindObjectOfType<BulletPoolManager>(); // finds bullet pool manager object.
+        bulletPoolManager = BulletPoolManager.GetInstance(); // gets instance
     }
 
 
@@ -37,8 +38,8 @@ public class BulletController : MonoBehaviour
             //TODO: This code needs to change to use the BulletPoolManager's
             //TODO: ResetBullet function which will return the bullet to the pool
 
-            // Destroy(this.gameObject);
-            bulletPoolManager.ResetBullet(this.gameObject);
+            // Destroy(this.gameObject); // destroys bullet
+            bulletPoolManager.ResetBullet(this.gameObject); // puts bullet back in queue.
         }
     }
 }

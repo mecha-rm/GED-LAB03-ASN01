@@ -24,6 +24,10 @@ public class PlayerController : MonoBehaviour
     // TODO: create a reference to the BulletPoolManager here
     BulletPoolManager bulletPoolManager = null; // = new BulletPoolManager();
 
+    // the maximum amount of bullets in the pool at a given time.
+    // this is used to set the variable of the same name in 'BulletPoolManager'.
+    public int MaxBullets = 3;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,9 +39,12 @@ public class PlayerController : MonoBehaviour
         // Shoots bullet on a delay if button is pressed
         StartCoroutine(FireBullet());
 
-        // gets instance.
-        // bulletPoolManager = BulletPoolManager.GetInstance();
-        bulletPoolManager = FindObjectOfType<BulletPoolManager>();
+        // bulletPoolManager = FindObjectOfType<BulletPoolManager>(); // finds the object type
+        bulletPoolManager = BulletPoolManager.GetInstance(); // gets instance
+
+        // destroys all bullets in the list.
+        // this needs to be called because when the bullets are deleted, null values still remain in the list.
+        bulletPoolManager.DestroyAllBullets(); 
     }
 
     // Update is called once per frame
@@ -51,6 +58,12 @@ public class PlayerController : MonoBehaviour
 
         // Destroys bullet when it's off screen
         CheckBounds();
+
+        // override max bullets value in case it changes.
+        if (bulletPoolManager.MaxBullets < MaxBullets)
+            bulletPoolManager.MaxBullets = MaxBullets;
+        else // the maximum amount of bullets cannot be lowered.
+            MaxBullets = bulletPoolManager.MaxBullets;
     }
 
     public void Move()
@@ -129,7 +142,7 @@ public class PlayerController : MonoBehaviour
 
                 // Instantiate(bullet, bulletSpawn.position, Quaternion.identity);
 
-
+                // new code for getting a bullet from the pool.
                 GameObject newBullet = bulletPoolManager.GetBullet();
                 newBullet.transform.position = bulletSpawn.position;
                 newBullet.transform.rotation = Quaternion.identity;
