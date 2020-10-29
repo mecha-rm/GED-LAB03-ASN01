@@ -12,6 +12,7 @@ public class BulletPoolManager
     // instance of bullet pool manager.
     private static BulletPoolManager instance = null;
 
+    // bullet
     public GameObject bullet;
 
     // TODO: create a structure to contain a collection of bullets
@@ -31,7 +32,7 @@ public class BulletPoolManager
     {
         if (instance == null)
         {
-            instance = new BulletPoolManager();
+            instance = new BulletPoolManager(); // creates instance
         }
     
         return instance;
@@ -43,9 +44,11 @@ public class BulletPoolManager
         // TODO: add a series of bullets to the Bullet Pool
         // finds bullet
 
+        // creates the bullet.
         if (bullet == null)
             bullet = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefabs/Bullet.prefab", typeof(Object));
 
+        // builds bullets
         _BuildBulletPool();
     }
 
@@ -66,19 +69,20 @@ public class BulletPoolManager
             MaxBullets++; // a new max has been set.
         }
 
+        // gets the bullet to be fired.
         GameObject firedBullet = bulletPool.Dequeue();
         firedBullet.SetActive(true);
 
         // return bullet;
-        return firedBullet; // returnes the bullet that has been fired.
+        return firedBullet; // returns the bullet that has been fired.
     }
 
     // TODO: modify this function to reset/return a bullet back to the Pool 
     public void ResetBullet(GameObject bullet)
     {
-        bullet.transform.position = this.bullet.transform.position; // get original bullet's position.
-        bullet.SetActive(false);
-        bulletPool.Enqueue(bullet);
+        bullet.transform.position = this.bullet.transform.position; // set as original bullet's position.
+        bullet.SetActive(false); // set the bullet as being inactive
+        bulletPool.Enqueue(bullet); // put bullet back in queue.
     }
 
     // Task 4: builds the bullet pool.
@@ -126,7 +130,7 @@ public class BulletPoolManager
         
     }
 
-    // sets the bullet used. This removes all existing bullets.
+    // sets the bullet used for firing. This removes all existing bullets, and creates new ones.
     public void SetBullet(GameObject bullet)
     {
         DestroyAllBullets();
