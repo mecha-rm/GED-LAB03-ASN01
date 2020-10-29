@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
 using Util;
 
@@ -44,7 +42,7 @@ public class PlayerController : MonoBehaviour
 
         // destroys all bullets in the list.
         // this needs to be called because when the bullets are deleted, null values still remain in the list.
-        bulletPoolManager.DestroyAllBullets(); 
+        bulletPoolManager.DestroyAllBullets();
     }
 
     // Update is called once per frame
@@ -68,9 +66,9 @@ public class PlayerController : MonoBehaviour
 
     public void Move()
     {
-        if(Input.GetAxis("Horizontal") > 0.1f)
+        if (Input.GetAxis("Horizontal") > 0.1f)
         {
-           _rigidbody2D.AddForce(new Vector2(verticalSpeed.max * Time.deltaTime, 0.0f));
+            _rigidbody2D.AddForce(new Vector2(verticalSpeed.max * Time.deltaTime, 0.0f));
         }
 
         if (Input.GetAxis("Horizontal") < -0.1f)
@@ -85,7 +83,7 @@ public class PlayerController : MonoBehaviour
     private void CheckBounds()
     {
         // check right boundary
-        if(transform.position.x > boundary.Right)
+        if (transform.position.x > boundary.Right)
         {
             transform.position = new Vector2(boundary.Right, transform.position.y);
         }
@@ -112,7 +110,7 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        switch(other.gameObject.tag)
+        switch (other.gameObject.tag)
         {
             case "Cloud":
                 _thunderSound.Play();
@@ -126,7 +124,7 @@ public class PlayerController : MonoBehaviour
     }
 
     IEnumerator FireBullet()
-    { 
+    {
         while (true)
         {
             // Check every 0.15 seconds if shoot button is pressed

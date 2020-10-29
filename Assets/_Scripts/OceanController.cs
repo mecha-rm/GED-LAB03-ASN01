@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class OceanController : MonoBehaviour
 {
@@ -47,7 +45,7 @@ public class OceanController : MonoBehaviour
     /// </summary>
     void CheckBounds()
     {
-        if(transform.position.y <= resetPoint)
+        if (transform.position.y <= resetPoint)
         {
             Reset();
         }

@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-[CreateAssetMenu(fileName ="HighScoreSO", menuName ="Game/HighScore")]
+[CreateAssetMenu(fileName = "HighScoreSO", menuName = "Game/HighScore")]
 [System.Serializable]
 public class HighScoreSO : ScriptableObject
 {

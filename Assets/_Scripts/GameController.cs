@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using System.IO;
+using UnityEngine.UI;
 
 
 public class GameController : MonoBehaviour
@@ -50,16 +48,16 @@ public class GameController : MonoBehaviour
         set
         {
             _lives = value;
-            if(_lives < 1)
+            if (_lives < 1)
             {
-                
+
                 SceneManager.LoadScene("End");
             }
             else
             {
                 livesLabel.text = "Lives: " + _lives.ToString();
             }
-           
+
         }
     }
 
@@ -74,7 +72,7 @@ public class GameController : MonoBehaviour
         {
             _score = value;
 
-            
+
             if (scoreBoard.GetComponent<ScoreBoard>().highScore < _score)
             {
                 scoreBoard.GetComponent<ScoreBoard>().highScore = _score;
@@ -160,7 +158,7 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     // Event Handlers

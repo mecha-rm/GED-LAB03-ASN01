@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using UnityEngine;
+﻿using System.Collections.Generic;
 using UnityEditor;
+using UnityEngine;
 
 // TODO: Bonus - make this class a Singleton!
 
@@ -26,7 +24,7 @@ public class BulletPoolManager
     {
         Start();
     }
-    
+
     // gets instance of class (for bonus)
     public static BulletPoolManager GetInstance()
     {
@@ -34,7 +32,7 @@ public class BulletPoolManager
         {
             instance = new BulletPoolManager(); // creates instance
         }
-    
+
         return instance;
     }
 
@@ -55,7 +53,7 @@ public class BulletPoolManager
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     //TODO: modify this function to return a bullet from the Pool
@@ -63,7 +61,7 @@ public class BulletPoolManager
     {
         // creates a new bullet if there are none available.
         // alternatively, you could recall a bullet that's already been fired.
-        if(bulletPool.Count == 0)
+        if (bulletPool.Count == 0)
         {
             bulletPool.Enqueue(MonoBehaviour.Instantiate(bullet));
             MaxBullets++; // a new max has been set.
@@ -89,7 +87,7 @@ public class BulletPoolManager
     private void _BuildBulletPool()
     {
         // if the bullet pool hasn't been made yet.
-        if(bulletPool == null)
+        if (bulletPool == null)
             bulletPool = new Queue<GameObject>();
 
         // if no bullet has been set.
@@ -122,12 +120,12 @@ public class BulletPoolManager
     public void DestroyAllBullets()
     {
         // destroys all bullets.
-        while(bulletPool.Count > 0)
+        while (bulletPool.Count > 0)
         {
             GameObject bullet = bulletPool.Dequeue();
             MonoBehaviour.Destroy(bullet);
         }
-        
+
     }
 
     // sets the bullet used for firing. This removes all existing bullets, and creates new ones.
